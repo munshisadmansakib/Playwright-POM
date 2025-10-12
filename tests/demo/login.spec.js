@@ -1,19 +1,16 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/login'
+const { test, expect } = require('@playwright/test');
+const LoginPage = require('../../pages/login');
 
-test('test', async ({ page }) => 
-  
-  {
+test('User can successfully log in', async ({ page }) => {
+    const loginPage = new LoginPage(page);
 
-  const Login = new LoginPage(page)
+    // Step 1: Navigate to the login page
+    await loginPage.gotoLoginPage();
 
-  await Login.gotoLoginPage()
-  await Login.login('tomsmith', 'SuperSecretPassword!')
+    // Step 2: Log in with valid credentials
+    await loginPage.login('tomsmith', 'SuperSecretPassword!');
 
-  // await page.goto('https://the-internet.herokuapp.com/login');
-  // await page.getByLabel('Username').click();
-  // await page.getByLabel('Username').fill('tomsmith');
-  // await page.getByLabel('Password').click();
-  // await page.getByLabel('Password').fill('SuperSecretPassword!');
-  // await page.getByRole('button', { name: ' Login' }).click();
+    // Step 3: Optionally, verify login success
+    // For example, check for a logout button or success message
+    await expect(page.locator('#flash')).toContainText('You logged into a secure area!');
 });

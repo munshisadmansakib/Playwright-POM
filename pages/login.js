@@ -1,25 +1,34 @@
-exports.LoginPage = class LoginPage 
-{
+const { Module } = require("module");
 
-    constructor(page) 
-    {
-        this.page = page
-        this.username_textbox = page.getByLabel('Username')
-        this.password_textbox = page.getByLabel('Password')
-        this.login_button = page.getByRole('button', { name: 'Login' })
+class LoginPage {
+    constructor(page) {
+        this.page = page;
+        this.usernameInput = page.getByLabel('Username');
+        this.passwordInput = page.getByLabel('Password');
+        this.loginButton = page.getByRole('button', { name: 'Login' });
     }
 
-    async gotoLoginPage()
-    {
+    async gotoLoginPage() {
         await this.page.goto('https://the-internet.herokuapp.com/login');
     }
 
-    async login(username, password)
-
-    {
-        await this.username_textbox.fill(username)
-        await this.password_textbox.fill(password)
-        await this.login_button.click()
+    async enterUsername(username) {
+        await this.usernameInput.fill(username);
     }
 
+    async enterPassword(password) {
+        await this.passwordInput.fill(password);
+    }
+
+    async clickLoginButton() {
+        await this.loginButton.click();
+    }
+
+    async login(username, password) {
+        await this.enterUsername(username);
+        await this.enterPassword(password);
+        await this.clickLoginButton();
+    }
 }
+
+module.exports = LoginPage;
