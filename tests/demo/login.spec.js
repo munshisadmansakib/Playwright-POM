@@ -1,7 +1,8 @@
 const { test, expect } = require('@playwright/test');
 const LoginPage = require('../../pages/login');
 
-test('User can successfully log in', async ({ page }) => {
+test('User can successfully log in', async ({ page }) => 
+  {
     const loginPage = new LoginPage(page);
 
     // Step 1: Navigate to the login page
